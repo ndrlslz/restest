@@ -11,3 +11,57 @@ dependencies {
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
     testCompile 'junit:junit:4.12'
 }
+
+task groovyJar(type: Jar) {
+    from files(sourceSets.main.output.classesDir)
+    from configurations.runtime.asFileTree.files.collect { zipTree(it) }
+
+    manifest {
+        attributes 'Main-Class': 'com.ndrlslz.restest.App'
+    }
+}
+
+build.dependsOn groovyJar
+
+configurations {
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDir 'src/main/groovy'
+        }
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+
+    test {
+        groovy {
+            srcDir 'src/test/unit/groovy'
+        }
+        resources {
+            srcDir 'src/test/unit/resources'
+        }
+    }
+
+    integrationTest {
+        groovy {
+            srcDir 'src/test/intg/groovy'
+        }
+        resources {
+            srcDir 'src/test/intg/resources'
+        }
+        compileClasspath += main.output + test.output
+        runtimeClasspath += main.output + test.output
+    }
+}
+
+task integrationTest(type: Test) {
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
+}
+
+check.dependsOn integrationTest
