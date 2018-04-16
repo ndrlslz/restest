@@ -1,15 +1,17 @@
 api:
   name: test api
-  username: apiuser
-  password: passw0rd
-  endpoint: http://localhost:8080
+#  username: apiuser
+#  password: passw0rd
+  endpoint: http://localhost
+  port: 8763
 
 scenarios:
   - name: call api endpoint
     method: GET
-    path: /test
+    path: /shops
     headers:
       contentType: application/json
+      test: test1
     expect:
       status: 200
       body:

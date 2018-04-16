@@ -2,7 +2,8 @@ api:
   name: test api
   username: apiuser
   password: passw0rd
-  endpoint: http://localhost:8080
+  endpoint: http://localhost
+  port: 8080
 
 scenarios:
   - name: call api endpoint

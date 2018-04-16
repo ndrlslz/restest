@@ -5,4 +5,5 @@ class Api {
     String username
     String password
     String endpoint
+    int port
 }
