@@ -15,7 +15,21 @@ scenarios:
     expect:
       status: 200
       body:
-        data: 1
-        data.error: 2
+        data[0].code: code1
+        data[0].name: name1
+    variables:
+      defined: data.error
+
+  - name: call api endpoint1
+    method: GET
+    path: /shops/1/orders
+    headers:
+      contentType: application/json
+      test: test1
+    expect:
+      status: 200
+      body:
+        data[0].vehicle: benz
+        data[0].price: 999
     variables:
       defined: data.error

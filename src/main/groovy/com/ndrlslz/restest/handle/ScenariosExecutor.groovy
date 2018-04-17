@@ -2,19 +2,32 @@ package com.ndrlslz.restest.handle
 
 import com.ndrlslz.restest.client.RestClient
 import com.ndrlslz.restest.model.Scenarios
-import io.restassured.response.ValidatableResponse
+import com.ndrlslz.restest.validator.ResponseBodyValidator
+import com.ndrlslz.restest.validator.StatusCodeValidator
+import com.ndrlslz.restest.validator.Validator
+import io.restassured.response.Response
 
-import static org.hamcrest.core.IsEqual.equalTo
+import java.util.stream.Collectors
 
 class ScenariosExecutor {
-    def exec(Scenarios scenarios) {
+    static void exec(Scenarios scenarios) {
         println("Begin scenarios: $scenarios.name")
-        ValidatableResponse response = RestClient.get(scenarios)
-        try {
-            response.body("data.code", equalTo("code1"))
-        } catch (AssertionError ignored) {
+        Response response = RestClient.get(scenarios)
 
-            println("Accepted value: , but actually: ")
-        }
+        boolean fail = validate(scenarios, response)
+        println(fail)
+    }
+
+    static boolean validate(Scenarios scenarios, Response response) {
+        List<Validator> validators = new ArrayList<>()
+        validators.add(new StatusCodeValidator())
+        validators.add(new ResponseBodyValidator())
+
+        validators
+                .stream()
+                .map({ it.validate(response, scenarios) })
+                .collect(Collectors.toList())
+                .stream()
+                .any { !it }
     }
 }
