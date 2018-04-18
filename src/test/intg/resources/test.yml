@@ -1,0 +1,21 @@
+api:
+  name: test api
+  username: apiuser
+  password: passw0rd
+  endpoint: http://localhost
+  port: 8080
+
+scenarios:
+  - name: call api endpoint
+    method: GET
+    path: /shops
+    headers:
+      contentType: application/json
+    expect:
+      status: 200
+      body:
+        test: test2
+#        data[0].id: 1
+#        data[0].name: shop1
+    variables:
+      defined: data.error

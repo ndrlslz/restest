@@ -9,17 +9,17 @@ class ResponseBodyValidator implements Validator {
     @Override
     boolean validate(Response response, Scenarios scenarios) {
         boolean success = true
-        def validatableResponse = response.then()
-        def jsonPath = response.jsonPath()
         if (scenarios.responseBody) {
             scenarios.responseBody.each { path, expectedValue ->
                 try {
-                    validatableResponse.body(path, equalTo(expectedValue))
-                    println("Expect $path is $expectedValue")
+                    response.then().body(path, equalTo(expectedValue))
+                    println("Expected $path is $expectedValue")
                 } catch (AssertionError ignored) {
-                    println("Expect $path is $expectedValue, but actually is ${jsonPath.get(path)}")
+                    println("Expected $path is $expectedValue, but actually is ${response.jsonPath().get(path)}")
                     success = false
-
+                } catch (Exception exception) {
+                    println("Expected $path is $expectedValue, but exception is ${exception.class}: ${exception.message}")
+                    success = false
                 }
             }
         }

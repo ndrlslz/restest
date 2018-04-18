@@ -9,9 +9,19 @@ import io.restassured.response.Response
 
 import java.util.stream.Collectors
 
+import static java.util.stream.Collectors.toList
+
 class ScenariosExecutor {
+    private static List<Validator> validators
+
+    static {
+        validators = new ArrayList<>()
+        validators.add(new StatusCodeValidator())
+        validators.add(new ResponseBodyValidator())
+    }
+
     static void exec(Scenarios scenarios) {
-        println("Begin scenarios: $scenarios.name")
+        println("\nRunning scenarios '$scenarios.name'")
         Response response = RestClient.get(scenarios)
 
         boolean fail = validate(scenarios, response)
@@ -19,14 +29,10 @@ class ScenariosExecutor {
     }
 
     static boolean validate(Scenarios scenarios, Response response) {
-        List<Validator> validators = new ArrayList<>()
-        validators.add(new StatusCodeValidator())
-        validators.add(new ResponseBodyValidator())
-
         validators
                 .stream()
                 .map({ it.validate(response, scenarios) })
-                .collect(Collectors.toList())
+                .collect(toList())
                 .stream()
                 .any { !it }
     }

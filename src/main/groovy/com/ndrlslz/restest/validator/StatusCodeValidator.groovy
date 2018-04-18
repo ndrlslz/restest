@@ -8,12 +8,14 @@ class StatusCodeValidator implements Validator {
     boolean validate(Response response, Scenarios scenarios) {
         boolean success = true
         if (scenarios.statusCode) {
-            def validatableResponse = response.then()
             try {
-                validatableResponse.statusCode(scenarios.statusCode)
+                response.then().statusCode(scenarios.statusCode)
                 println("Excepted status code is $scenarios.statusCode")
             } catch (AssertionError ignored) {
                 println("Excepted status code is $scenarios.statusCode, but actually is $response.statusCode")
+                success = false
+            } catch (Exception exception) {
+                println("Expected status code is $scenarios.statusCode, but exception is ${exception.class}: ${exception.message}")
                 success = false
             }
         }
