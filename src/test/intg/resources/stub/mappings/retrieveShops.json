@@ -1,0 +1,11 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/shops"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "retrieveShops.json",
+    "headers": { "Content-Type": "application/json" }
+  }
+}

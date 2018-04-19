@@ -2,6 +2,7 @@ package com.ndrlslz.restest.app
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import com.ndrlslz.restest.App
+import com.ndrlslz.restest.report.ResultReport
 import org.junit.Rule
 import spock.lang.Specification
 
@@ -16,6 +17,6 @@ class AppTest extends Specification {
         App.main("src/test/intg/resources/test.yml")
 
         then:
-        true
+        ResultReport.result.size() == 2
     }
 }

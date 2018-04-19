@@ -1,11 +1,11 @@
 {
   "request": {
     "method": "GET",
-    "url": "/shops"
+    "url": "/shops/1/orders"
   },
   "response": {
     "status": 200,
-    "bodyFileName": "test.json",
+    "bodyFileName": "retrieveOrders.json",
     "headers": { "Content-Type": "application/json" }
   }
 }

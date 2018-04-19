@@ -12,7 +12,6 @@ import static io.restassured.RestAssured.given
 class RestClient {
     static void configure() {
         def api = AppContext.currentApi.get()
-        println("Begin configure api: $api.name")
         RestAssured.baseURI = api.endpoint
         RestAssured.port = api.port
         if (api.username && api.password) {
@@ -29,7 +28,7 @@ class RestClient {
         response
     }
 
-    static ValidatableResponse post(Scenarios scenarios) {
+    static Response post(Scenarios scenarios) {
         def response = given()
                 .body(scenarios.body)
                 .headers(scenarios.headers)

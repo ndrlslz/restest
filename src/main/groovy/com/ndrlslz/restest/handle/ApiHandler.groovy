@@ -4,6 +4,7 @@ import com.ndrlslz.restest.client.RestClient
 import com.ndrlslz.restest.core.AppContext
 import com.ndrlslz.restest.model.Api
 
+import static com.ndrlslz.restest.utils.Printer.cyan
 import static com.ndrlslz.restest.utils.Utils.notNull
 
 class ApiHandler implements Handler {
@@ -18,6 +19,11 @@ class ApiHandler implements Handler {
         currentApi.password = api.password
 
         AppContext.currentApi.set(currentApi)
+        AppContext.variables.set(new HashSet())
         RestClient.configure()
+        cyan("Running REST API Test")
+        cyan("Name: $api.name")
+        cyan("Endpoint: $api.endpoint")
+        cyan("Port: $api.port")
     }
 }

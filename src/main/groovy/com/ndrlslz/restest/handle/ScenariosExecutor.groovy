@@ -2,13 +2,13 @@ package com.ndrlslz.restest.handle
 
 import com.ndrlslz.restest.client.RestClient
 import com.ndrlslz.restest.model.Scenarios
+import com.ndrlslz.restest.report.ResultReport
 import com.ndrlslz.restest.validator.ResponseBodyValidator
 import com.ndrlslz.restest.validator.StatusCodeValidator
 import com.ndrlslz.restest.validator.Validator
 import io.restassured.response.Response
 
-import java.util.stream.Collectors
-
+import static com.ndrlslz.restest.utils.Printer.yellow
 import static java.util.stream.Collectors.toList
 
 class ScenariosExecutor {
@@ -21,11 +21,11 @@ class ScenariosExecutor {
     }
 
     static void exec(Scenarios scenarios) {
-        println("\nRunning scenarios '$scenarios.name'")
+        yellow("\nRunning scenarios '$scenarios.name'")
         Response response = RestClient.get(scenarios)
 
         boolean fail = validate(scenarios, response)
-        println(fail)
+        ResultReport.result.put(scenarios.name, fail)
     }
 
     static boolean validate(Scenarios scenarios, Response response) {
