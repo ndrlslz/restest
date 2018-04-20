@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/shops/1/orders",
+    "bodyPatterns": [
+      {
+        "matchesJsonPath": "*"
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "createOrder.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

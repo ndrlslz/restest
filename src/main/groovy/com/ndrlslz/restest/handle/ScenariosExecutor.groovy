@@ -22,7 +22,7 @@ class ScenariosExecutor {
 
     static void exec(Scenarios scenarios) {
         yellow("\nRunning scenarios '$scenarios.name'")
-        Response response = RestClient.get(scenarios)
+        Response response = RestClient.dispatch(scenarios)
 
         boolean fail = validate(scenarios, response)
         ResultReport.result.put(scenarios.name, fail)

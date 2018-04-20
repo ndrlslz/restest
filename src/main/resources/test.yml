@@ -1,7 +1,7 @@
 api:
   name: test api
-#  username: apiuser
-#  password: passw0rd
+  username: apiuser
+  password: passw0rd
   endpoint: http://localhost
   port: 8763
 

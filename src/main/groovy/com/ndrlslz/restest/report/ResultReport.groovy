@@ -31,4 +31,8 @@ class ResultReport {
         }
         white("======================================================")
     }
+
+    static void clear() {
+        result.clear()
+    }
 }

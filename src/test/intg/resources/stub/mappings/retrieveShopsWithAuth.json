@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/auth/shops",
+    "basicAuth": {
+      "username": "apiuser",
+      "password": "passw0rd"
+    }
+
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "retrieveShops.json",
+    "headers": { "Content-Type": "application/json" }
+  }
+}

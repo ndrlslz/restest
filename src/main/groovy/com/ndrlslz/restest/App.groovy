@@ -2,7 +2,6 @@ package com.ndrlslz.restest
 
 import com.ndrlslz.restest.core.AppExecutor
 import com.ndrlslz.restest.reader.DefinitionReader
-import com.ndrlslz.restest.report.ResultReport
 
 import static com.ndrlslz.restest.report.ResultReport.printResult
 

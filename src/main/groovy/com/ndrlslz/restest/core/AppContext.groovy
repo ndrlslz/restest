@@ -7,4 +7,10 @@ class AppContext {
     static ThreadLocal<Api> currentApi = new ThreadLocal<>()
     static ThreadLocal<Scenarios> currentScenarios = new ThreadLocal<>()
     static ThreadLocal<Set> variables = new ThreadLocal<>()
+
+    static void clear() {
+        currentApi.remove()
+        currentScenarios.remove()
+        variables.remove()
+    }
 }
