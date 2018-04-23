@@ -42,5 +42,13 @@ class AppTest extends Specification {
         ResultReport.result.size() == 1
     }
 
+    def "appVariableTest"() {
+        when:
+        App.main("src/test/intg/resources/appTestWithVariable.yml")
+
+
+        then:
+        ResultReport.result.size() == 2
+    }
 
 }

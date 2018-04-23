@@ -14,7 +14,8 @@ scenarios:
     body: >
       {
         "vehicle": "benz",
-        "price": 888
+        "price": 888,
+        "id": 1
       }
     expect:
       status: 200

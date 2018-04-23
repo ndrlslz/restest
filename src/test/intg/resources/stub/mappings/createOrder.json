@@ -4,7 +4,7 @@
     "url": "/shops/1/orders",
     "bodyPatterns": [
       {
-        "matchesJsonPath": "*"
+        "matchesJsonPath": "$.[?(@.id =~ /[0-9]*/)]"
       }
     ]
   },

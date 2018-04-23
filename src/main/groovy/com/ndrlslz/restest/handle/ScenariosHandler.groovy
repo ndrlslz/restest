@@ -23,11 +23,11 @@ class ScenariosHandler implements Handler {
         currentScenarios.name = notNull(scenarios.name, "scenarios.name")
         currentScenarios.path = notNull(scenarios.path, "scenarios.path")
         currentScenarios.method = notNull(scenarios.method, "scenarios.method") as Method
-        currentScenarios.body = scenarios.body
-        currentScenarios.headers = scenarios.headers
-        currentScenarios.statusCode = scenarios.expect.status
-        currentScenarios.responseBody = scenarios.expect.body
-        currentScenarios.variables = scenarios.variables
+        currentScenarios.body = scenarios.body ?: ""
+        currentScenarios.headers = scenarios.headers ?: [:]
+        currentScenarios.statusCode = scenarios.expect.status ?: 200
+        currentScenarios.responseBody = scenarios.expect.body ?: [:]
+        currentScenarios.variables = scenarios.variables ?: [:]
 
         AppContext.currentScenarios.set(currentScenarios)
         currentScenarios

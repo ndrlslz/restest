@@ -8,5 +8,5 @@ class Scenarios {
     Map<String, Object> headers
     Integer statusCode
     Map<String, Object> responseBody
-    Map<String, Object> variables
+    Map<String, String> variables
 }

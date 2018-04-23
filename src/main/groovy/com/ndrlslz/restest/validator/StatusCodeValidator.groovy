@@ -13,12 +13,12 @@ class StatusCodeValidator implements Validator {
         if (scenarios.statusCode) {
             try {
                 response.then().statusCode(scenarios.statusCode)
-                green("Excepted status code is $scenarios.statusCode")
+                green("Except status code is $scenarios.statusCode")
             } catch (AssertionError ignored) {
-                red("Excepted status code is $scenarios.statusCode, but actually is $response.statusCode")
+                red("Except status code is $scenarios.statusCode, but actually is $response.statusCode")
                 success = false
             } catch (Exception exception) {
-                red("Expected status code is $scenarios.statusCode, but exception is ${exception.class}: ${exception.message}")
+                red("Expect status code is $scenarios.statusCode, but exception is ${exception.class}: ${exception.message}")
                 success = false
             }
         }

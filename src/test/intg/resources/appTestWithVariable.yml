@@ -19,17 +19,21 @@ scenarios:
         data.find { it.name == "name2" }.id: 2
     variables:
       shopId: data[0].id
-      shopId2: data.find { it.name == "name2" }.id
 
-  - name: retrieve orders
-    method: GET
-    path: /shops/1/orders
+  - name: create orders
+    method: POST
+    path: /shops/${shopId}/orders
     headers:
-      contentType: application/json
+      Content-Type: application/json
+    body: >
+      {
+        "vehicle": "benz",
+        "price": 888,
+        "id": ${shopId}
+      }
     expect:
       status: 200
       body:
-        data[0].price: 99
-        data[0].vehicle: benz
-        data.size(): 4
-
+        vehicle: benz
+        price: 888
+        shopId: ${shopId}

@@ -19,7 +19,6 @@ class ApiHandler implements Handler {
         currentApi.password = api.password
 
         AppContext.currentApi.set(currentApi)
-        AppContext.variables.set(new HashSet())
         RestClient.configure()
         cyan("Running REST API Test")
         cyan("Name: $api.name")
