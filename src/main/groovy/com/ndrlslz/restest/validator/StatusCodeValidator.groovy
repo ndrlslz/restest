@@ -10,17 +10,15 @@ class StatusCodeValidator implements Validator {
     @Override
     boolean validate(Response response, Scenarios scenarios) {
         boolean success = true
-        if (scenarios.statusCode) {
-            try {
-                response.then().statusCode(scenarios.statusCode)
-                green("Except status code is $scenarios.statusCode")
-            } catch (AssertionError ignored) {
-                red("Except status code is $scenarios.statusCode, but actually is $response.statusCode")
-                success = false
-            } catch (Exception exception) {
-                red("Expect status code is $scenarios.statusCode, but exception is ${exception.class}: ${exception.message}")
-                success = false
-            }
+        try {
+            response.then().statusCode(scenarios.expect.statusCode)
+            green("Except status code is $scenarios.expect.statusCode")
+        } catch (AssertionError ignored) {
+            red("Except status code is $scenarios.expect.statusCode, but actually is $response.statusCode")
+            success = false
+        } catch (Exception exception) {
+            red("Expect status code is $scenarios.expect.statusCode, but exception is ${exception.class}: ${exception.message}")
+            success = false
         }
         success
     }

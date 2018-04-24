@@ -9,23 +9,24 @@ import static com.ndrlslz.restest.utils.Printer.red
 import static org.hamcrest.Matchers.containsString
 import static org.hamcrest.Matchers.hasToString
 
-class ResponseBodyValidator implements Validator {
+class ResponseHeaderValidator implements Validator {
     @Override
     boolean validate(Response response, Scenarios scenarios) {
         boolean success = true
-        scenarios.expect.body.each { path, expectedValue ->
+        scenarios.expect.headers.each { key, expectedValue ->
             String value = TemplateUtils.render(expectedValue)
             try {
-                response.then().body(path, hasToString(containsString(value)))
-                green("Expect body $path is $value")
+                response.then().header(key, hasToString(containsString(value)))
+                green("Expect header $key is $value")
             } catch (AssertionError ignored) {
-                red("Expect body $path is $value, but actually is ${response.jsonPath().get(path)}")
+                red("Expect header $key is $value, but actually is ${response.getHeader(key)}")
                 success = false
             } catch (Exception exception) {
-                red("Expect body $path is $value, but exception is ${exception.class}: ${exception.message}")
+                red("Expect header $key is $value, but exception is ${exception.class}: ${exception.message}")
                 success = false
             }
         }
         success
+
     }
 }

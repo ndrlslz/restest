@@ -4,6 +4,7 @@ import com.ndrlslz.restest.client.RestClient
 import com.ndrlslz.restest.model.Scenarios
 import com.ndrlslz.restest.store.VariablesStore
 import com.ndrlslz.restest.validator.ResponseBodyValidator
+import com.ndrlslz.restest.validator.ResponseHeaderValidator
 import com.ndrlslz.restest.validator.StatusCodeValidator
 import com.ndrlslz.restest.validator.Validator
 import io.restassured.response.Response
@@ -19,6 +20,7 @@ class ScenariosExecutor {
     static {
         validators = new ArrayList<>()
         validators.add(new StatusCodeValidator())
+        validators.add(new ResponseHeaderValidator())
         validators.add(new ResponseBodyValidator())
         variablesStore = new VariablesStore()
     }

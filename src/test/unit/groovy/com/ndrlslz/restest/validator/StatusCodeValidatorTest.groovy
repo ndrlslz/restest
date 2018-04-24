@@ -19,7 +19,7 @@ class StatusCodeValidatorTest extends Specification {
         def validatableResponse = Mock(ValidatableResponse)
 
         and:
-        scenarios.statusCode = 200
+        scenarios.expect.statusCode = 200
         response.then() >> validatableResponse
         validatableResponse.statusCode(200) >> validatableResponse
 
@@ -37,7 +37,7 @@ class StatusCodeValidatorTest extends Specification {
         def validatableResponse = Mock(ValidatableResponse)
 
         and:
-        scenarios.statusCode = 200
+        scenarios.expect.statusCode = 200
         response.then() >> validatableResponse
         validatableResponse.statusCode(200) >> { throw new AssertionError() }
 

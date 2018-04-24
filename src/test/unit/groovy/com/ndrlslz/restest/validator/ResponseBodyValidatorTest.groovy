@@ -21,8 +21,8 @@ class ResponseBodyValidatorTest extends Specification {
         def scenarios = new Scenarios()
 
         and:
-        scenarios.responseBody = new HashMap<>()
-        scenarios.responseBody.data = 1
+        scenarios.expect.body = new HashMap<>()
+        scenarios.expect.body.data = 1
         response.then() >> validatableResponse
         validatableResponse.body("data", equalTo(1)) >> validatableResponse
 
@@ -40,8 +40,8 @@ class ResponseBodyValidatorTest extends Specification {
         def scenarios = new Scenarios()
 
         and:
-        scenarios.responseBody = new HashMap<>()
-        scenarios.responseBody.data = 1
+        scenarios.expect.body = new HashMap<>()
+        scenarios.expect.body.data = 1
         response.then() >> validatableResponse
         validatableResponse.body("data", _) >> { throw new RuntimeException() }
 

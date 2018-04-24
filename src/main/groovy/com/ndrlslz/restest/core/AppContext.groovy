@@ -9,6 +9,7 @@ class AppContext {
     static ThreadLocal<Api> currentApi = new ThreadLocal<>()
     static ThreadLocal<Scenarios> currentScenarios = new ThreadLocal<>()
     static ThreadLocal<HashMap> currentVariables = new ThreadLocal<>()
+    static Boolean logVerbose = false
 
     static void clear() {
         currentApi.remove()
