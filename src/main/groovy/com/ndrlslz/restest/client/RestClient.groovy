@@ -2,18 +2,16 @@ package com.ndrlslz.restest.client
 
 import com.ndrlslz.restest.core.AppContext
 import com.ndrlslz.restest.model.Scenarios
-import groovy.text.SimpleTemplateEngine
 import io.restassured.RestAssured
 import io.restassured.response.Response
 import io.restassured.response.ResponseOptions
 
-import static com.ndrlslz.restest.core.AppContext.retrieveCurrentVariables
 import static com.ndrlslz.restest.model.Method.*
+import static com.ndrlslz.restest.utils.TemplateUtils.render
 import static io.restassured.RestAssured.given
+import static java.util.stream.Collectors.toMap
 
 class RestClient {
-    private static SimpleTemplateEngine engine = new SimpleTemplateEngine()
-
     static void configure() {
         def api = AppContext.currentApi.get()
         RestAssured.baseURI = api.endpoint
@@ -24,10 +22,16 @@ class RestClient {
     }
 
     static Response dispatch(Scenarios scenarios) {
+        def headers = scenarios.headers.entrySet()
+                .stream()
+                .collect(toMap({ it.key.toString() }, {
+            render(it.value.toString())
+        }))
+
         def specification = given()
-                .headers(scenarios.headers)
-                .body(engine.createTemplate(scenarios.body).make(retrieveCurrentVariables()).toString())
-        def path = engine.createTemplate(scenarios.path).make(retrieveCurrentVariables()).toString()
+                .headers(headers)
+                .body(render(scenarios.body))
+        def path = render(scenarios.path)
 
         switch (scenarios.method) {
             case GET:

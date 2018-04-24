@@ -8,6 +8,7 @@ import org.junit.Rule
 import spock.lang.Specification
 
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
+import static java.util.stream.Collectors.toMap
 
 class AppTest extends Specification {
     @Rule
@@ -24,6 +25,7 @@ class AppTest extends Specification {
         println("***********************")
         then:
         ResultReport.result.size() == 2
+        allScenariosSucceed()
     }
 
     def "appGetWithAuthTest"() {
@@ -32,6 +34,7 @@ class AppTest extends Specification {
 
         then:
         ResultReport.result.size() == 1
+        allScenariosSucceed()
     }
 
     def "appPostTest"() {
@@ -40,6 +43,7 @@ class AppTest extends Specification {
 
         then:
         ResultReport.result.size() == 1
+        allScenariosSucceed()
     }
 
     def "appVariableTest"() {
@@ -49,6 +53,16 @@ class AppTest extends Specification {
 
         then:
         ResultReport.result.size() == 2
+        allScenariosSucceed()
+    }
+
+    private static boolean allScenariosSucceed() {
+        ResultReport.result
+                .entrySet()
+                .stream()
+                .filter { entry -> entry.getValue() }
+                .collect(toMap({ it.key }, { it.value }))
+                .size() == 0
     }
 
 }

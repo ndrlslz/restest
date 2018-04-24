@@ -5,7 +5,7 @@ class Scenarios {
     String path
     Method method
     String body
-    Map<String, Object> headers
+    Map<String, String> headers
     Integer statusCode
     Map<String, Object> responseBody
     Map<String, String> variables

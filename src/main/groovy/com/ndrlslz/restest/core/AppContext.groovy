@@ -16,7 +16,6 @@ class AppContext {
         currentVariables.remove()
     }
 
-
     static Map retrieveCurrentVariables() {
         if (isNull(currentVariables.get())) {
             currentVariables.set(new HashMap())
