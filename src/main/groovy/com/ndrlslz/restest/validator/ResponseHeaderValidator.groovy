@@ -27,6 +27,5 @@ class ResponseHeaderValidator implements Validator {
             }
         }
         success
-
     }
 }

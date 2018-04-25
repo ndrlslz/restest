@@ -35,3 +35,37 @@ scenarios:
         data[0].vehicle: benz
         data.size(): 4
 
+  - name: create orders
+    method: POST
+    path: /shops/1/orders
+    headers:
+      Content-Type: application/json
+    body: >
+      {
+        "vehicle": "benz",
+        "price": 888,
+        "id": 1
+      }
+    expect:
+      status: 200
+      body:
+        vehicle: benz
+        price: 888
+
+  - name: create orders with variables
+    method: POST
+    path: /shops/${shopId}/orders
+    headers:
+      Content-Type: application/json
+    body: >
+      {
+        "vehicle": "benz",
+        "price": 888,
+        "id": ${shopId}
+      }
+    expect:
+      status: 200
+      body:
+        vehicle: benz
+        price: 888
+        shopId: ${shopId}

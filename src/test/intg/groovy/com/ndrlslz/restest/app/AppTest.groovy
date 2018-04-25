@@ -19,40 +19,19 @@ class AppTest extends Specification {
         AppContext.clear()
     }
 
-    def "appGetTest"() {
+    def "appTest"() {
         when:
-        App.main("src/test/intg/resources/appGetTest.yml")
+        App.main("src/test/intg/resources/ApiDefinition.yml")
         println("***********************")
         then:
-        ResultReport.result.size() == 2
         allScenariosSucceed()
     }
 
-    def "appGetWithAuthTest"() {
+    def "basicAuthTest"() {
         when:
-        App.main("src/test/intg/resources/appGetWithAuthTest.yml")
+        App.main("src/test/intg/resources/ApiDefinitionWIthBasicAuth.yml")
 
         then:
-        ResultReport.result.size() == 1
-        allScenariosSucceed()
-    }
-
-    def "appPostTest"() {
-        when:
-        App.main("src/test/intg/resources/appPostTest.yml")
-
-        then:
-        ResultReport.result.size() == 1
-        allScenariosSucceed()
-    }
-
-    def "appVariableTest"() {
-        when:
-        App.main("src/test/intg/resources/appTestWithVariable.yml")
-
-
-        then:
-        ResultReport.result.size() == 2
         allScenariosSucceed()
     }
 

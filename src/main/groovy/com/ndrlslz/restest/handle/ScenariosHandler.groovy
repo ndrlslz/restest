@@ -29,7 +29,6 @@ class ScenariosHandler implements Handler {
         currentScenarios.expect.statusCode = scenarios.expect.status ?: 200
         currentScenarios.variables = scenarios.variables ?: [:]
 
-
         AppContext.currentScenarios.set(currentScenarios)
         currentScenarios
     }

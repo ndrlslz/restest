@@ -17,7 +17,7 @@ class StatusCodeValidator implements Validator {
             red("Except status code is $scenarios.expect.statusCode, but actually is $response.statusCode")
             success = false
         } catch (Exception exception) {
-            red("Expect status code is $scenarios.expect.statusCode, but exception is ${exception.class}: ${exception.message}")
+            red("Expect status code is $scenarios.e.statusCode, but exception is ${exception.class}: ${exception.message}")
             success = false
         }
         success

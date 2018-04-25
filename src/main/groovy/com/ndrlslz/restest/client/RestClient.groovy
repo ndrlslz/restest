@@ -22,9 +22,7 @@ class RestClient {
     static Response dispatch(Scenarios scenarios) {
         def headers = scenarios.headers.entrySet()
                 .stream()
-                .collect(toMap({ it.key.toString() }, {
-            render(it.value.toString())
-        }))
+                .collect(toMap({ it.key.toString() }, { render(it.value.toString()) }))
 
         def requestSpec = given()
                 .headers(headers)
@@ -42,6 +40,5 @@ class RestClient {
         requestSpec
                 .request(scenarios.method, render(scenarios.path))
                 .andReturn()
-
     }
 }
