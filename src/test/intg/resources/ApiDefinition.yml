@@ -22,6 +22,19 @@ scenarios:
     variables:
       shopId: data[0].id
       shopId2: data.find { it.name == "name2" }.id
+      shopName: data[1].name
+
+  - name: jsonpath with variables
+    method: GET
+    path: /shops
+    headers:
+      Accept: application/json
+    expect:
+      status: 200
+      headers:
+        Content-Type: application/json
+      body:
+        data.find { it.name == "${shopName}" }.id: 2
 
   - name: retrieve orders
     method: GET
