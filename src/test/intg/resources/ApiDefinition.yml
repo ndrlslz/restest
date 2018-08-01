@@ -6,6 +6,9 @@ api:
   port: 8080
 
 scenarios:
+  - name: test minimal definition
+    path: /shops
+
   - name: retrieve shops
     method: GET
     path: /shops
