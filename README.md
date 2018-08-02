@@ -50,11 +50,14 @@ scenarios:
       NickId: data.find { it.name == "Nick" }.id
 ```
 
+Git clone the code
+`./gradlew build`
+`cd build/lib`
 Run `java -jar restest.jar definition.yml`
 
 
 ## Detailed Documentation
-Test scenarios are consist of two parts, `API definition` and `Scenarios definition`
+YAML definition are consist of two parts, `API definition` and `Scenarios definition`
 
 ### API Definition
 API definition describe the basic information of API.
@@ -111,3 +114,6 @@ section `expect` construct the part of HTTP response you expect.
 section `expect.body` use RestAssured library to check the HTTP response. please refer [RestAssured](http://rest-assured.io/) to get more syntax.
 
 section `variables` is used to store the variables from response, it could be retrieved in the following test scenarios.
+
+## Example
+You can refer more [examples](examples/example.yml)

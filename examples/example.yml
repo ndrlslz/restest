@@ -7,7 +7,7 @@ scenarios:
   - name: test minimal definition
     path: /shops
 
-  - name: retrieve shops
+  - name: test retrieve shops
     method: GET
     path: /shops
     headers:
@@ -17,16 +17,16 @@ scenarios:
       headers:
         Content-Type: application/json
       body:
+        data.size(): 4
         data[0].id: 1
         data[0].name: name1
         data.find { it.name == "name2" }.id: 2
-        data.size(): 4
     variables:
       shopId: data[0].id
       shopId2: data.find { it.name == "name2" }.id
       shopName: data[1].name
 
-  - name: jsonpath with variables
+  - name: test response body with variables
     method: GET
     path: /shops
     headers:
@@ -67,7 +67,7 @@ scenarios:
         vehicle: benz
         price: 888
 
-  - name: create orders with variables
+  - name: create orders with variables in path, body and response body
     method: POST
     path: /shops/${shopId}/orders
     headers:
