@@ -51,8 +51,11 @@ scenarios:
 ```
 
 Git clone the code
+
 `./gradlew build`
+
 `cd build/lib`
+
 Run `java -jar restest.jar definition.yml`
 
 
@@ -114,6 +117,15 @@ section `expect` construct the part of HTTP response you expect.
 section `expect.body` use RestAssured library to check the HTTP response. please refer [RestAssured](http://rest-assured.io/) to get more syntax.
 
 section `variables` is used to store the variables from response, it could be retrieved in the following test scenarios.
+
+### Command Parameters
+`java -jar restest.jar <file location or folder location> [true|false]`
+
+There are two parameters you can provide when run restest.jar.
+1. **definition location(required)**: it is either one definition yml file and a folder containing multiple definition yml files.
+
+2. **log verbose(optional)**: enable the verbose log or not. false by default.
+
 
 ## Example
 You can refer more [examples](examples/example.yml)
