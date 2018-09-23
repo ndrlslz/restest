@@ -2,6 +2,7 @@
 Restest is an automation test tool for RESTFul API.
 you can use it to test your RESTFul API easily via writing YAML, and it's simple to integrated with CI/CD as well.
 
+[中文版](http://ndrlslz.github.io/2018/09/22/Restest/)
 
 ## QuickStart
 
@@ -43,6 +44,7 @@ scenarios:
       headers:
         Content-Type: application/json
       body:
+        data.id: [1, 2]
         data[0].id: 1
         data[0].name: Tom
         data.find { it.name == "Nick" }.id: 2
@@ -58,6 +60,8 @@ Git clone the code
 
 Run `java -jar restest.jar definition.yml`
 
+Result as per below
+![restest_result](./images/restest_result.png)
 
 ## Detailed Documentation
 YAML definition are consist of two parts, `API definition` and `Scenarios definition`
@@ -126,6 +130,9 @@ There are two parameters you can provide when run restest.jar.
 
 2. **log verbose(optional)**: enable the verbose log or not. false by default.
 
+Below is an example which open the log verbose.
+
+![restest_detailed_result](./images/restest_detailed_result.png)
 
 ## Example
 You can refer more [examples](examples/example.yml)
