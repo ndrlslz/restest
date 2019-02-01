@@ -22,7 +22,6 @@ class AppTest extends Specification {
     def "appTest"() {
         when:
         App.main("src/test/intg/resources/ApiDefinition.yml")
-        println("***********************")
         then:
         allScenariosSucceed()
     }

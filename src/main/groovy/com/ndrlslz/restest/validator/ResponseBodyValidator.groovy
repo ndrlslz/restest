@@ -1,29 +1,65 @@
 package com.ndrlslz.restest.validator
 
+import com.ndrlslz.restest.model.Expression
 import com.ndrlslz.restest.model.Scenarios
+import com.ndrlslz.restest.utils.ExpressionParser
 import io.restassured.response.Response
+
+import java.util.function.Function
 
 import static com.ndrlslz.restest.utils.Printer.green
 import static com.ndrlslz.restest.utils.Printer.red
 import static com.ndrlslz.restest.utils.TemplateUtils.render
-import static org.hamcrest.Matchers.containsString
-import static org.hamcrest.Matchers.hasToString
+import static org.hamcrest.Matchers.*
 
+//TODO support assert function like contains(), greaterThan().....
 class ResponseBodyValidator implements Validator {
     @Override
     boolean validate(Response response, Scenarios scenarios) {
         boolean success = true
-        scenarios.expect.body.each { expectedPath, expectedValue ->
-            String value = render(expectedValue)
+        scenarios.expect.body.each { expectedPath, expectedExpression ->
+            Expression expression = ExpressionParser.parse(expectedExpression)
+
+            String operation = expression.function
+            String content = expression.parameters
+
             String path = render(expectedPath)
+            String value = render(content)
+
             try {
-                response.then().body(path, hasToString(containsString(value)))
-                green("Expect body $path is $value")
+                if (operation == "is") {
+                    response.then().body(path, hasToString(equalTo(value)))
+                } else if (operation == "greaterThan") {
+                    response.then().body(path, greaterThan(Integer.valueOf(value)))
+                } else if (operation == "contains") {
+                    String[] parameters = value.split(",")
+
+                    try {
+                        Integer[] result = Arrays.asList(parameters).stream().map(new Function<String, Integer>() {
+                            @Override
+                            Integer apply(String parameter) {
+                                return Integer.valueOf(parameter.trim())
+                            }
+                        }).toArray()
+
+                        response.then().body(path, containsInAnyOrder(result))
+                    } catch (Exception ignored) {
+                        String[] stringResult = Arrays.asList(parameters).stream().map(new Function<String, String>() {
+                            @Override
+                            String apply(String s) {
+                                return s.trim()
+                            }
+                        }).toArray()
+
+                        response.then().body(path, containsInAnyOrder(stringResult))
+                    }
+                }
+                green("Expect body $path $operation $value")
             } catch (AssertionError ignored) {
-                red("Expect body $path is $value, but actually is ${response.jsonPath().get(path)}")
+                red("Expect body $path $operation $value, but actually is ${response.jsonPath().get(path)}")
                 success = false
             } catch (Exception exception) {
-                red("Expect body $path is $value, but exception is ${exception.class}: ${exception.message}")
+                red("Expect body $path $operation $value, but exception is ${exception.class}: ${exception.message}")
                 success = false
             }
         }

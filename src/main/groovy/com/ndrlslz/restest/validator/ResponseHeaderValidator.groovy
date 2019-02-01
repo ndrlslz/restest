@@ -6,6 +6,7 @@ import io.restassured.response.Response
 
 import static com.ndrlslz.restest.utils.Printer.green
 import static com.ndrlslz.restest.utils.Printer.red
+import static com.ndrlslz.restest.utils.TemplateUtils.render
 import static org.hamcrest.Matchers.containsString
 import static org.hamcrest.Matchers.hasToString
 
@@ -14,7 +15,7 @@ class ResponseHeaderValidator implements Validator {
     boolean validate(Response response, Scenarios scenarios) {
         boolean success = true
         scenarios.expect.headers.each { key, expectedValue ->
-            String value = TemplateUtils.render(expectedValue)
+            String value = render(expectedValue)
             try {
                 response.then().header(key, hasToString(containsString(value)))
                 green("Expect header $key is $value")

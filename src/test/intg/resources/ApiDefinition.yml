@@ -20,7 +20,11 @@ scenarios:
         data[0].id: 1
         data[0].name: name1
         data.find { it.name == "name2" }.id: 2
+        data.find { it.name == "name2" }.id: greaterThan(1)
         data.size(): 4
+        data.id: [1, 2, 3, 4]
+        data.id: contains(4, 3, 2, 1)
+        data.name: contains(name1, name2, name3, name4)
     variables:
       shopId: data[0].id
       shopId2: data.find { it.name == "name2" }.id
@@ -37,6 +41,9 @@ scenarios:
         Content-Type: application/json
       body:
         data.find { it.name == "${shopName}" }.id: 2
+        data.find { it.name == "name2" }.id: greaterThan(${shopId})
+        data.id: contains(4, 3, ${shopId2}, ${shopId})
+        data.name: contains(name4, name3, ${shopName}, name1)
 
   - name: retrieve orders
     method: GET

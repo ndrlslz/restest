@@ -21,6 +21,7 @@ scenarios:
         data[0].id: 1
         data[0].name: name1
         data.find { it.name == "name2" }.id: 2
+        data.id: contains(1, 2, 3)
     variables:
       shopId: data[0].id
       shopId2: data.find { it.name == "name2" }.id
