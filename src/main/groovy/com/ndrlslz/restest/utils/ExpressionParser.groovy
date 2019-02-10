@@ -9,7 +9,7 @@ import static com.ndrlslz.restest.function.Is.FUNCTION_IS
 import static java.util.Objects.toString
 
 class ExpressionParser {
-    private static final Pattern EXPRESSION_PATTERN = Pattern.compile("^(.*)\\((.*)\\)")
+    private static final Pattern EXPRESSION_PATTERN = Pattern.compile("^(.*?)\\((.*)\\)")
 
     static Expression parse(Object expression) {
         String function

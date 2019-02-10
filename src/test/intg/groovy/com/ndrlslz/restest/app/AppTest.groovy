@@ -19,7 +19,7 @@ class AppTest extends Specification {
         AppContext.clear()
     }
 
-    def "appTest"() {
+    def "appBasicTest"() {
         when:
         App.main("src/test/intg/resources/ApiDefinition.yml")
         then:
@@ -28,8 +28,22 @@ class AppTest extends Specification {
 
     def "basicAuthTest"() {
         when:
-        App.main("src/test/intg/resources/ApiDefinitionWIthBasicAuth.yml")
+        App.main("src/test/intg/resources/ApiDefinitionWithBasicAuth.yml")
 
+        then:
+        allScenariosSucceed()
+    }
+
+    def "functionTest"() {
+        when:
+        App.main("src/test/intg/resources/ApiDefinitionWithFunction.yml")
+        then:
+        allScenariosSucceed()
+    }
+
+    def "specialCharacterTest"() {
+        when:
+        App.main("src/test/intg/resources/ApiDefinitionWithSpecialChar.yml")
         then:
         allScenariosSucceed()
     }
@@ -42,5 +56,4 @@ class AppTest extends Specification {
                 .collect(toMap({ it.key }, { it.value }))
                 .size() == 0
     }
-
 }

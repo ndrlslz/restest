@@ -1,0 +1,21 @@
+api:
+  name: test api
+  endpoint: http://localhost
+  port: 8080
+
+scenarios:
+  - name: test special characters with contains function
+    method: GET
+    path: /products
+    expect:
+      body:
+        data[0].id: is(1)
+        data.id: is([1, 2, 3, 4, 5])
+        data[0].name: "product1: car"
+        data[1].name: is(product2(house))
+#        data[2].name: is(product3\${phone})
+        data[2].name: "product3\\${phone}"
+        data[3].name: "!@\\$#1%^&*()_"
+        data[4].name: is(!@#1%^&*())
+#        data.name: "[product1: car, product2(house), product3\\${phone}, !@\\$#1%^&*()_, !@#1%^&*()]"
+        data.name: "contains(product2(house), product1: car, product3\\${phone}, !@\\$#1%^&*()_, !@#1%^&*())"

@@ -1,0 +1,41 @@
+api:
+  name: test api
+  endpoint: http://localhost
+  port: 8080
+
+scenarios:
+  - name: test contains function
+    method: GET
+    path: /shops
+    expect:
+      body:
+        data.id: contains(4, 3, 2, 1)
+        data.name: contains(name1, name2, name3, name4)
+    variables:
+      shopId: data[0].id
+      shopId2: data.find { it.name == "name2" }.id
+      shopName: data[1].name
+
+  - name: test contains function with variables
+    method: GET
+    path: /shops
+    expect:
+      body:
+        data.id: contains(4, 3, ${shopId2}, ${shopId})
+        data.name: contains(name1, ${shopName}, name3, name4)
+
+  - name: test greaterThan function
+    method: GET
+    path: /shops
+    expect:
+      body:
+        data.find { it.name == "${shopName}" }.id: 2
+        data.find { it.name == "name2" }.id: 2
+
+  - name: test greaterThan function with variables
+    method: GET
+    path: /shops
+    expect:
+      body:
+        data.find { it.name == "${shopName}" }.id: greaterThan(1)
+        data.find { it.name == "name2" }.id: greaterThan(${shopId})
