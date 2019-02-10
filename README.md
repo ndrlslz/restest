@@ -122,6 +122,13 @@ section `expect.body` use RestAssured library to check the HTTP response. please
 
 section `variables` is used to store the variables from response, it could be retrieved in the following test scenarios.
 
+#### Supported Function
+Within section `expect.body`, you are able to use function to check the response, and currently below function are supported.
+* contains
+* hasItems
+* greaterThan
+* lessThan
+
 ### Command Parameters
 `java -jar restest.jar <file location or folder location> [true|false]`
 

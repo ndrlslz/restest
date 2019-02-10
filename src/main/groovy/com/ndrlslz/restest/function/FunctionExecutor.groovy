@@ -9,7 +9,9 @@ class FunctionExecutor {
 
     static {
         functions.add(new Contains())
+        functions.add(new HasItems())
         functions.add(new GreaterThan())
+        functions.add(new LessThan())
         functions.add(new Is())
     }
 

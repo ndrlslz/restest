@@ -39,6 +39,16 @@ scenarios:
       body:
         data.find { it.name == "${shopName}" }.id: 2
 
+  - name: test function
+    method: GET
+    path: /shops
+    expect:
+      status: 200
+      body:
+        data.find { it.name == "name2" }.id: greaterThan(1)
+        data.id: contains(1, 2, 3)
+        data.name: hasItems(name1)
+
   - name: retrieve orders
     method: GET
     path: /shops/1/orders

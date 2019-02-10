@@ -19,3 +19,13 @@ scenarios:
         data[4].name: is(!@#1%^&*())
 #        data.name: "[product1: car, product2(house), product3\\${phone}, !@\\$#1%^&*()_, !@#1%^&*()]"
         data.name: "contains(product2(house), product1: car, product3\\${phone}, !@\\$#1%^&*()_, !@#1%^&*())"
+
+
+  - name: test special characters with hasItems function
+    method: GET
+    path: /products
+    expect:
+      body:
+        data.id: is([1, 2, 3, 4, 5])
+        data.name: hasItems(product2(house), product3\${phone}, !@\$#1%^&*()_, !@#1%^&*())
+#        data.name: "hasItems(product2(house), product1: car, product3\\${phone}, !@\\$#1%^&*()_, !@#1%^&*())"
