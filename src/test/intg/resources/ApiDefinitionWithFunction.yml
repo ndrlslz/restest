@@ -63,3 +63,27 @@ scenarios:
       body:
         data.find { it.name == "${shopName}" }.id: lessThan(10)
         data.find { it.name == "name2" }.id: lessThan(3)
+
+  - name: test startsWith function
+    path: /shops/1/orders
+    expect:
+      body:
+        data[0].vehicle: startsWith(ben)
+        data[1].price: startsWith(10)
+        data[2].vehicle: startsWith(this_is_)
+
+  - name: test endsWith function
+    path: /shops/1/orders
+    expect:
+      body:
+        data[0].vehicle: endsWith(z)
+        data[2].price: endsWith(123)
+        data[2].vehicle: endsWith(car2)
+
+  - name: test containsString function
+    path: /shops/1/orders
+    expect:
+      body:
+        data[0].shopName: containsString(ame)
+        data[1].price: containsString(10)
+
