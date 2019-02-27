@@ -8,14 +8,10 @@ class FunctionExecutor {
     private static List<Function> functions = new ArrayList<>()
 
     static {
-        functions.add(new Contains())
-        functions.add(new ContainsString())
-        functions.add(new HasItems())
-        functions.add(new GreaterThan())
-        functions.add(new LessThan())
-        functions.add(new StartsWith())
-        functions.add(new EndsWith())
-        functions.add(new Is())
+        FunctionLoader
+                .loadClasses()
+                .forEach({ clazz -> functions.add(clazz.newInstance())
+        })
     }
 
     static void execute(String function, String parameters, Response response, String path) {
