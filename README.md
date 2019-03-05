@@ -125,6 +125,9 @@ section `variables` is used to store the variables from response, it could be re
 #### Supported Function
 Within section `expect.body`, you are able to use function to check the response, and currently below function are supported.
 * contains
+* containsString
+* endsWith
+* startsWith
 * hasItems
 * greaterThan
 * lessThan
