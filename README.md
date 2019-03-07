@@ -131,6 +131,8 @@ Within section `expect.body`, you are able to use function to check the response
 * hasItems
 * greaterThan
 * lessThan
+* isEmptyOrNullString
+* anything
 
 ### Command Parameters
 `java -jar restest.jar <file location or folder location> [true|false]`

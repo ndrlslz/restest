@@ -87,3 +87,14 @@ scenarios:
         data[0].shopName: containsString(ame)
         data[1].price: containsString(10)
 
+  - name: test isEmptyOrNullString function
+    path: /shops/1/orders
+    expect:
+      body:
+        notExists: isEmptyOrNullString()
+
+  - name: test anything function
+    path: /shops/1/orders
+    expect:
+      body:
+        data.anything: anything()
